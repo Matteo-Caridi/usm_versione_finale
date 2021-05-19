@@ -8,10 +8,10 @@ class UserValidation
 {
 
     public const FIRST_NAME_ERROR_REQUIRED_MSG = '';
-    public const FIRST_NAME_ERROR_NONE_MSG = 'Il nome è corretto';
+    public const FIRST_NAME_ERROR_NONE_MSG = '';
 
     public const LAST_NAME_ERROR_REQUIRED_MSG = '';
-    public const LAST_NAME_ERROR_NONE_MSG = 'Il cognome è corretto';
+    public const LAST_NAME_ERROR_NONE_MSG = '';
 
     public const BIRTHDAY_ERROR_FORMAT_MSG = 'Il formato della data non è valido';
     public const BIRTHDAY_NONE_MSG = '';

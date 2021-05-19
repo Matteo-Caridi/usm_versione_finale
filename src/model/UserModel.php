@@ -110,7 +110,7 @@ class UserModel
         } else if ($pdostm->rowCount() === 1) {
             return true;
         }
-<<<<<<< HEAD
+
     }
 
 
@@ -129,7 +129,7 @@ class UserModel
         } else {
             return false;
         }
-=======
->>>>>>> 04d871ed19dd9363821369142102b4999f479bc5
+
+
     }
 }
