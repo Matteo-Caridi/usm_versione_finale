@@ -1,55 +1,50 @@
 <?php
 
 namespace sarassoroberto\usm\validator;
-
 use sarassoroberto\usm\entity\User;
 
-class UserValidation
-{
+class UserValidation {
 
-    public const FIRST_NAME_ERROR_REQUIRED_MSG = '';
-    public const FIRST_NAME_ERROR_NONE_MSG = '';
+    public const FIRST_NAME_ERROR_NONE_MSG = 'Il nome è ggiusto !!';
+    public const FIRST_NAME_ERROR_REQUIRED_MSG = 'Il nome è obbligatorio';
+    
+    public const PASSWORD_ERROR_NONE_MSG = '';
+    public const PASSWORD_ERROR_REQUIRED_MSG = 'Password è obbligatoria';
 
-    public const LAST_NAME_ERROR_REQUIRED_MSG = '';
-    public const LAST_NAME_ERROR_NONE_MSG = '';
+    public const LAST_NAME_ERROR_NONE_MSG = 'Il cognome è ggiusto !!';
+    public const LAST_NAME_ERROR_REQUIRED_MSG = 'Il cognome è obbligatorio';
 
     public const BIRTHDAY_ERROR_FORMAT_MSG = 'Il formato della data non è valido';
     public const BIRTHDAY_NONE_MSG = '';
-    public const BIRTHDAY_ERROR_NONE_MSG = '';
-
+    public const BIRTHDAY_ERROR_NONE_MSG = 'Il formato della data è corretto';
+    
     public const EMAIL_ERROR_FORMAT_MSG = 'Il formato dell\'email non è valido';
     public const EMAIL_ERROR_REQUIRED_MSG = 'La mail è obbligatoria';
-    public const EMAIL_ERROR_NONE_MSG = '';
-
-    public const PASS_ERROR_FORMAT_MSG = 'La password deve contenere almeno 5 caratteri tra cui 1 lettera maiuscola, 1 carattere speciale e 1 numero';
-    public const PASS_ERROR_REQUIRED_MSG = 'La password è obbligatoria';
-    public const PASS_ERROR_NONE_MSG = '';
-
-
-
+    public const EMAIL_ERROR_NONE_MSG = 'Il formato della email è corretto';
 
     private $user;
-    private $errors = []; // Array<ValidationResult>;
+    private $errors = [] ;// Array<ValidationResult>;
     private $isValid = true;
 
-    public function __construct(User $user)
-    {
+    public $firstNameResult;
+
+    public function __construct(User $user) {
         $this->user = $user;
         $this->validate();
     }
 
     private function validate()
-    {
+    {   
         //$this->firstNameResult =  $this->validateFirstName();
         $this->errors['firstName']  = $this->validateFirstName();
         $this->errors['lastName']  = $this->validateLastName();
         $this->errors['email']  = $this->validateEmail();
         $this->errors['birthday']  = $this->validateBirthday();
-        $this->errors['password'] = $this->validatePassword();
+        $this->errors['password']  = $this->validatePassword();
+
     }
 
-    public function getIsValid()
-    {
+    public function getIsValid(){
         $this->isValid = true;
         foreach ($this->errors as $validationResult) {
             $this->isValid = $this->isValid && $validationResult->getIsValid();
@@ -57,73 +52,77 @@ class UserValidation
         return $this->isValid;
     }
 
-    private function validateFirstName(): ?ValidationResult
+    private function validateFirstName():?ValidationResult
     {
         $firstName = trim($this->user->getFirstName());
 
-        if (empty($firstName)) {
-            $validationResult = new ValidationResult(self::FIRST_NAME_ERROR_REQUIRED_MSG, false, $firstName);
+        if(empty($firstName)){
+            $validationResult = new ValidationResult(self::FIRST_NAME_ERROR_REQUIRED_MSG,false,$firstName);
         } else {
-            $validationResult = new ValidationResult(self::FIRST_NAME_ERROR_NONE_MSG, true, $firstName);
+            $validationResult = new ValidationResult(self::FIRST_NAME_ERROR_NONE_MSG,true,$firstName);
         };
         return $validationResult;
     }
 
-    private function validateLastName(): ?ValidationResult
+    private function validateLastName():?ValidationResult
     {
         $lastName = trim($this->user->getLastName());
 
-        if (empty($lastName)) {
-            $validationResult = new ValidationResult(self::LAST_NAME_ERROR_REQUIRED_MSG, false, $lastName);
+        if(empty($lastName)){
+            $validationResult = new ValidationResult(self::LAST_NAME_ERROR_REQUIRED_MSG,false,$lastName);
         } else {
-            $validationResult = new ValidationResult(self::LAST_NAME_ERROR_NONE_MSG, true, $lastName);
+            $validationResult = new ValidationResult(self::LAST_NAME_ERROR_NONE_MSG,true,$lastName);
         };
         return $validationResult;
     }
 
-    private function validateBirthday(): ?ValidationResult
+    private function validatePassword():?ValidationResult
+    {
+        $password = trim($this->user->getPassword());
+
+        if(empty($password) && empty($this->user->getUserId())){
+            $validationResult = new ValidationResult(self::PASSWORD_ERROR_REQUIRED_MSG,false,$password);
+        } else {
+            $validationResult = new ValidationResult(self::PASSWORD_ERROR_NONE_MSG,true,$password);
+        };
+        return $validationResult;
+    }
+
+    private function validateBirthday():?ValidationResult
     {
         $date = trim($this->user->getBirthday());
-        if (empty($date)) {
+        if(empty($date)){
             // la mail non è obbligatoria quindi se è vuota restituico un messaggio positivo
             return new ValidationResult(self::BIRTHDAY_NONE_MSG, true, NULL);
-        } else {
-            if ($this->validateDate($date)) {
+        }else{
+            if($this->validateDate($date)){
                 return new ValidationResult(self::BIRTHDAY_ERROR_NONE_MSG, true, $date);
-            } else {
+            }else{
                 return new ValidationResult(self::BIRTHDAY_ERROR_FORMAT_MSG, true, $date);
             }
         }
+     
     }
 
-    private function validateEmail(): ?ValidationResult
+    private function validateEmail():?ValidationResult
     {
         $email = $this->user->getEmail();
-        if (empty($email)) {
+        if(empty($email)){
             return new ValidationResult(self::EMAIL_ERROR_REQUIRED_MSG, false, $email);
             //return true;
         } else {
 
-            $validateEmail = filter_var($email, FILTER_VALIDATE_EMAIL);
-
-            if ($validateEmail === false) {
+            $validateEmail = filter_var($email,FILTER_VALIDATE_EMAIL);
+            
+            if($validateEmail === false)
+            {
                 return new ValidationResult(self::EMAIL_ERROR_FORMAT_MSG, false, $email);
-            } else {
+            }
+            else {
                 return new ValidationResult(self::EMAIL_ERROR_NONE_MSG, true, $email);
             }
-        }
-    }
-
-    public function validatePassword()
-    {
-        $password = $this->user->getPassword();
-        if (empty($password) === true) {
-            return new ValidationResult(self::PASS_ERROR_REQUIRED_MSG, false, $password);
-        } else if ((strlen($password) < 5)) {
-            return new ValidationResult(self::PASS_ERROR_FORMAT_MSG, false, $password);
-        } else {
-            return new ValidationResult(self::PASS_ERROR_NONE_MSG, true, $password);
-        }
+            
+        } 
     }
 
     /**
@@ -134,7 +133,7 @@ class UserValidation
      */
     public function getErrors()
     {
-        return $this->errors;
+        return $this->errors; 
     }
 
     /**

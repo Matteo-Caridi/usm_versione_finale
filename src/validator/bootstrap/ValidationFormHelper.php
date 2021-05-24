@@ -13,8 +13,11 @@ class ValidationFormHelper {
         $message = $validationResult->getMessage();
 
         return [$value,$formControlClass,$classMessage,$message];
+        // $firstName = $user->getFirstName();
+        // $firstNameClass = $firstNameValidation->getIsValid() ? 'is-valid' : 'is-invalid';
+        // $firstNameClassMessage = $firstNameValidation->getIsValid() ? 'valid-feedback' : 'invalid-feedback';
+        // $firstNameMessage = $firstNameValidation->getMessage();
     }
-    
 
     public static function getDefault($defaultValue='')
     {

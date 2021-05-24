@@ -1,75 +1,49 @@
-https://www.edureka.co/blog/decrypt-md5-password-PHP/
+Integrare la UserSession al al vostro script
 
-- Aggiungere la password
-  - [ ] aggiungere attributo password nel database
-  - [ ] aggiungere campo password nel form
-  - [ ] aggiungere proprietà password alla classe User
+- [x] Inserire la password criptata
+- [x] [UserSession](src/service/UserSession.php)
 
-  - Impostare la mail come  chiave unica nella tabella degli utenti. 
-  - how to set unique key in mysql 
+# Crud degli interessi
 
-<!-- - Quando crei un nuovo utente si cripta la password -->
+User n --- m Interesse
 
-- [ ] Implementare la schermata di logIn
-    - [ ]  **login_user.php** controller
-    - [ ]  form inserisco email/username / password
-    - [ ]  implementare **UserModel::autenticate($username,$password):?User**
-    - [ ]  se l'utente esiste accedo all'elenco degli utenti
+- [x] Creare la tabella Interesse(InteresseId,nome)
+- [x] Creare la tabella User_Interesse(UserId,InteresseId)
 
-<<<<<<< HEAD
-    - [x] **UserModel::readOne($user_id)** (dati di un solo utente) 
+- Creare il CRUD (InteresseModel)
+
+# Modificare il CRUD degli utenti 
+
+- [ ] Form Permettere di selezionare un interesse
+- [ ] UserModel modificare le query/metodi inserendo l'interesse
+      
+      - [ ] CREATE USER - Come ottenere id di un utente appena creato ?
+      - [ ] Inserire nella tabella User_Interesse UserId appena creato e InteresseId selezionato
+
   
-  > FIX: argomenti di User nel costruttore (vedi sopra)
-  
-    - [ ] **User::update(User $user)** update (modifica)
+      - [ ] EDIT USER - Devo trovare l'interesse compilato dall'utente in fase di iscrizione già selezionato [selecthtml](https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_select)
 
- # Pagina con elenco utenti TASK-3
-  PAGINE (controller)
-  - a.[x] Elenco degli utenti **list_user.php**
-  
-  
-  
-  
-  --------------------------------------------------
-  
-  qualcuno a premuto aggiungi
-     - [ ] creo un istanza User
-     - [ ] Effettuo la validazione è sanificazione dei valori dell'istanza di User
-     - [ ] se tutto è ok salvo l'utente --> si va a una pagina di conferma
-                 [ ] Istanza del model uso il metodo create 
-     - [ ] se non è tutto ok rimango sul form e segnalo gli errori
+      - [ ] DELETE USER - cancellare il suo riferimento anche nella tabella
+      User_Interesse
 
-     per ogni errore / campo
-     *firstName "Mario" *lastName vuoto
-     rimango nel form
-     *firstName "MArio" *lasName 
-      Risultato della validazione
-                           - messaggio "campo obbligatorio"
-      isValid = true       - isValid = false 
-                           - code
-      valore 
-      ''
-      "Mario"              - ''
+      - [ ] DELETE Interesse - cancellare il suo riferimento anche nella tabella
+      User_Interesse
 
-  ---------------------------------------------------- 
-  lezione 11/05/21
-  
-  Lista cose da fare:
+      - EDIT USER - Cambio id di riferimento nella tabella User_Interesse
 
-    - [x] aggiungere la password 
-    - [x] aggiungere attributo password nel db
-    - [x] aggiungere input text password nel foarm
-    - [x] aggiungere la proprietà password nella classe User 
-    - [x] inserire username come mail
-      - [x] verificare che non esistano due mail uguali
-    - [x] impostare una chiave unica sull'email --> how to set unique key in mysql
+      
+       
 
 
-    - [ ] metodo password_hash() per la criptazione ----> quando creiamo un nuovo utente si cripta la password
-    - [ ] implementare la schermata di login
-      - [ ] **login user** ----> è un controller
-      - [ ] form dove inseriamo la mail (come username) e la password.
-      - [ ] implementare **UserModel::autenticate($username, $password):?User**
-      - [ ] se l'utente esiste accedo all'elenco degli utenti
-=======
->>>>>>> 04d871ed19dd9363821369142102b4999f479bc5
+
+Interesse
+  - InteresseId
+  - nome
+
+- 
+
+user_interesse
+
+
+
+#

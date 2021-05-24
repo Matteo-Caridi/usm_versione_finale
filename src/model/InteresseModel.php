@@ -1,4 +1,5 @@
 <?php
+
 namespace sarassoroberto\usm\model;
 
 use \PDO;
