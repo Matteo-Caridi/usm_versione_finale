@@ -23,19 +23,19 @@ class InteresseModel
     }
 
     // CRUD
-    public function create(string nome)
+    public function create(Interesse $interesse)
     {
         try {
-            $pdostm = $this->conn->prepare('INSERT INTO nome VALUES :nome);');
+            $pdostm = $this->conn->prepare('INSERT INTO Interesse (nome) VALUES (:nome);');
             $pdostm->bindValue(':nome', $interesse->getNome(), PDO::PARAM_STR);
             $pdostm->execute();
 
      
         } catch (\PDOException $e) {
-            // TODO: Evitare echo
             throw $e;
         }
     }
+
 
 
     public function readAll()
@@ -47,22 +47,22 @@ class InteresseModel
         return $pdostm->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Interesse::class, ['', '']);
     }
 
-    public function readOne($user_id)
-    {
-        try {
-            $sql = "Select * from User where userId=:user_id";
-            $pdostm = $this->conn->prepare($sql);
-            $pdostm->bindValue('user_id', $user_id, PDO::PARAM_INT);
-            $pdostm->execute();
-            $result = $pdostm->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, User::class, ['', '', '', '', '']);
+    // public function readOne($interesseId)
+    // {
+    //     try {
+    //         $sql = "SELECT * FROM interesse WHERE userId=:user_id";
+    //         $pdostm = $this->conn->prepare($sql);
+    //         $pdostm->bindValue('user_id', $user_id, PDO::PARAM_INT);
+    //         $pdostm->execute();
+    //         $result = $pdostm->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, User::class, ['', '', '', '', '']);
 
-            return count($result) === 0 ? null : $result[0];
-        } catch (\Throwable $th) {
-            echo "qualcosa è andato storto";
-            echo " " . $th->getMessage();
-            //throw $th;
-        }
-    }
+    //         return count($result) === 0 ? null : $result[0];
+    //     } catch (\Throwable $th) {
+    //         echo "qualcosa è andato storto";
+    //         echo " " . $th->getMessage();
+    //         //throw $th;
+    //     }
+    // }
 
 
     public function update($user)
