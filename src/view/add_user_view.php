@@ -49,17 +49,30 @@
          </div>
       </div>
 
-      <div class="">
+      <div class="form-group">
          <p>Interessi</p>
       </div>
 
       <div class="form-check">
          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-         <label class="form-check-label" for="flexRadioDefault1">
-            <?php  ?>
-         </label>
 
+         <label class="form-check-label" for="flexRadioDefault1">
+            <?= $interesse ?>
+         </label>
       </div>
+
+      <?php foreach ($interesse->readAll() as $int) { ?>
+            <tr>
+                <td width="1%"><?= $int->getintId() ?></td>
+                <td><?= $int->getFirstName() ?></td>
+                <td><?= $int->getLastName() ?></td>
+                <td><?= $int->getBirthday() ?></td>
+                <td class="text-nowrap">
+                    <a href="edit_int.php?int_id=<?= $int->getintId() ?>" class="btn btn-secondary">Edit </a>
+                    <a href="delete_int.php?int_id=<?= $int->getintId() ?>" class="btn btn-danger">Delete </a>
+                </td>
+            </tr>
+        <?php } ?>
 
       <?php if (empty($userId)) : ?>
          <div class="form-group">
