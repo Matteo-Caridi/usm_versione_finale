@@ -29,8 +29,6 @@ class InteresseModel
             $pdostm = $this->conn->prepare('INSERT INTO Interesse (nome) VALUES (:nome);');
             $pdostm->bindValue(':nome', $interesse->getNome(), PDO::PARAM_STR);
             $pdostm->execute();
-
-     
         } catch (\PDOException $e) {
             throw $e;
         }
@@ -47,37 +45,31 @@ class InteresseModel
         return $pdostm->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Interesse::class, ['', '']);
     }
 
-    // public function readOne($interesseId)
-    // {
-    //     try {
-    //         $sql = "SELECT * FROM interesse WHERE userId=:user_id";
-    //         $pdostm = $this->conn->prepare($sql);
-    //         $pdostm->bindValue('user_id', $user_id, PDO::PARAM_INT);
-    //         $pdostm->execute();
-    //         $result = $pdostm->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, User::class, ['', '', '', '', '']);
-
-    //         return count($result) === 0 ? null : $result[0];
-    //     } catch (\Throwable $th) {
-    //         echo "qualcosa è andato storto";
-    //         echo " " . $th->getMessage();
-    //         //throw $th;
-    //     }
-    // }
-
-
-    public function update($user)
+    public function readOne($InteresseId)
     {
-        $sql = "UPDATE User set firstName=:firstName, 
-                                lastName=:lastName,
-                                email=:email,
-                                birthday=:birthday
-                                where userId=:user_id;";
+        try {
+            $sql = "SELECT * FROM interesse WHERE InteresseId=:InteresseId";
+            $pdostm = $this->conn->prepare($sql);
+            $pdostm->bindValue('InteresseId', $InteresseId, PDO::PARAM_INT);
+            $pdostm->execute();
+            $result = $pdostm->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Interesse::class, ['', '']);
+
+            return count($result) === 0 ? null : $result[0];
+        } catch (\Throwable $th) {
+            echo "qualcosa è andato storto";
+            echo " " . $th->getMessage();
+            //throw $th;
+        }
+    }
+
+
+    public function update($interesse)
+    {
+        $sql = "UPDATE Interesse set nome =:nome
+                                where InteresseId=:InteresseId;";
         $pdostm = $this->conn->prepare($sql);
-        $pdostm->bindValue(':firstName', $user->getFirstName(), PDO::PARAM_STR);
-        $pdostm->bindValue(':lastName', $user->getLastName(), PDO::PARAM_STR);
-        $pdostm->bindValue(':email', $user->getEmail(), PDO::PARAM_STR);
-        $pdostm->bindValue(':birthday', $user->getBirthday(), PDO::PARAM_STR);
-        $pdostm->bindValue(':user_id', $user->getUserId());
+        $pdostm->bindValue(':nome', $interesse->getNome(), PDO::PARAM_STR);
+        $pdostm->bindValue(':InteresseId', $interesse->getInteresseId());
 
         try {
             $pdostm->execute();
@@ -92,12 +84,12 @@ class InteresseModel
         }
     }
 
-    public function delete(int $user_id): bool
+    public function delete(int $InteresseId): bool
     {
-        $sql = "delete from User where userId=:user_id ";
+        $sql = "DELETE FROM Interesse WHERE InteresseId=:InteresseId";
 
         $pdostm = $this->conn->prepare($sql);
-        $pdostm->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $pdostm->bindValue(':InteresseId', $InteresseId, PDO::PARAM_INT);
         $pdostm->execute();
 
 
@@ -127,13 +119,5 @@ class InteresseModel
         }
     }
 
-    public function autenticate(string $email, string $password): ?User
-    {
-        $user = $this->findByEmail($email);
-        if (!is_null($user)) {
-            $passwordHash = $user->getPassword();
-            return password_verify($password, $passwordHash) ? $user : null;
-        }
-        return null;
-    }
+
 }
