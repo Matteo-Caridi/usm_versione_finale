@@ -1,5 +1,6 @@
 <?php
 
+namespace sarassoroberto\usm\entity;
 
 class Interesse
 {

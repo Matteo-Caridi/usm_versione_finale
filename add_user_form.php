@@ -2,10 +2,11 @@
 
 
 use sarassoroberto\usm\factory\UserFactory;
-use sarassoroberto\usm\model\InteresseModel;
 use sarassoroberto\usm\model\UserModel;
 use sarassoroberto\usm\validator\bootstrap\ValidationFormHelper;
 use sarassoroberto\usm\validator\UserValidation;
+use sarassoroberto\usm\entity\Interesse;
+use sarassoroberto\usm\model\InteresseModel;
 
 require "./__autoload.php";
 
@@ -22,13 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     list($birthday, $birthdayClass, $birthdayClassMessage, $birthdayMessage) = ValidationFormHelper::getDefault();
     list($birthday, $birthdayClass, $birthdayClassMessage, $birthdayMessage) = ValidationFormHelper::getDefault();
     list($password, $passwordClass, $passwordClassMessage, $passwordMessage) = ValidationFormHelper::getDefault();
-
-
     $int = new InteresseModel();
     $interesse = $int->readAll();
-
-    foreach ($interessi as $interesse) {
-    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

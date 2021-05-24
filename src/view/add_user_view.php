@@ -1,4 +1,10 @@
-<?php include './src/view/head.php' ?>
+<?php
+
+use sarassoroberto\usm\model\InteresseModel;
+use sarassoroberto\usm\entity\Interesse;
+
+
+include './src/view/head.php' ?>
 <?php include './src/view/header.php' ?>
 
 <div class="container">
@@ -53,26 +59,21 @@
          <p>Interessi</p>
       </div>
 
-      <div class="form-check">
-         <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
 
-         <label class="form-check-label" for="flexRadioDefault1">
-            <?= $interesse ?>
-         </label>
-      </div>
 
-      <?php foreach ($interesse->readAll() as $int) { ?>
-            <tr>
-                <td width="1%"><?= $int->getintId() ?></td>
-                <td><?= $int->getFirstName() ?></td>
-                <td><?= $int->getLastName() ?></td>
-                <td><?= $int->getBirthday() ?></td>
-                <td class="text-nowrap">
-                    <a href="edit_int.php?int_id=<?= $int->getintId() ?>" class="btn btn-secondary">Edit </a>
-                    <a href="delete_int.php?int_id=<?= $int->getintId() ?>" class="btn btn-danger">Delete </a>
-                </td>
-            </tr>
-        <?php } ?>
+
+      <?php
+
+      foreach ($interesse as $int) { ?>
+
+         <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="<?= $int->getInteresseId() ?>">
+            <label class="form-check-label" for="<?= $int->getInteresseId() ?>">
+               <?= $int->getNome() ?>
+            </label>
+         </div>
+
+      <?php } ?>
 
       <?php if (empty($userId)) : ?>
          <div class="form-group">
