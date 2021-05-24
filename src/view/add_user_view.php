@@ -55,30 +55,35 @@ include './src/view/head.php' ?>
          </div>
       </div>
 
+
       <div class="form-group">
-         <p>Interessi</p>
+         <p>Interesse</p>
+         <br>
+         <div class="d-flex justify-content-center ">
+            <?php
+            $int = new InteresseModel();
+            $interesse = $int->readAll();
+            foreach ($interesse as $int) { ?>
+
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="interesse" value="<?= $int->getInteresseId() ?>" id="<?= $int->getInteresseId() ?>"required>
+                  <label class="form-check-label" for="<?= $int->getInteresseId() ?>">
+                     <!-- <?= $int->getInteresseId() ?> -->
+                     <?= $int->getNome() ?>
+                  </label>
+               </div>
+
+            <?php } ?>
+         </div>
       </div>
 
 
 
 
-      <?php
-
-      foreach ($interesse as $int) { ?>
-
-         <div class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="<?= $int->getInteresseId() ?>">
-            <label class="form-check-label" for="<?= $int->getInteresseId() ?>">
-               <?= $int->getNome() ?>
-            </label>
-         </div>
-
-      <?php } ?>
-
       <?php if (empty($userId)) : ?>
          <div class="form-group">
             <label for="">password</label>
-            <input class="form-control <?= $passwordClass ?>" value="<?= $password ?>" name="password" type="text">
+            <input class="form-control <?= $passwordClass ?>" value="<?= $password ?>" name="password" type="password">
             <div class="<?= $passwordClassMessage ?>">
                <?= $passwordMessage ?>
             </div>

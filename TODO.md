@@ -14,11 +14,11 @@ User n --- m Interesse
 
 # Modificare il CRUD degli utenti 
 
-- [ ] Form Permettere di selezionare un interesse
-- [ ] UserModel modificare le query/metodi inserendo l'interesse
+- [x] Form Permettere di selezionare un interesse
+- [x] UserModel modificare le query/metodi inserendo l'interesse
       
-      - [ ] CREATE USER - Come ottenere id di un utente appena creato ?
-      - [ ] Inserire nella tabella User_Interesse UserId appena creato e InteresseId selezionato
+      - [x] CREATE USER - Come ottenere id di un utente appena creato ?
+      - [x] Inserire nella tabella User_Interesse UserId appena creato e InteresseId selezionato
 
   
       - [ ] EDIT USER - Devo trovare l'interesse compilato dall'utente in fase di iscrizione già selezionato [selecthtml](https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_select)

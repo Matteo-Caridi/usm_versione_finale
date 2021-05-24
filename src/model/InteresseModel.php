@@ -65,7 +65,7 @@ class InteresseModel
 
     public function update($interesse)
     {
-        $sql = "UPDATE Interesse set nome =:nome
+        $sql = "UPDATE interesse set nome =:nome
                                 where InteresseId=:InteresseId;";
         $pdostm = $this->conn->prepare($sql);
         $pdostm->bindValue(':nome', $interesse->getNome(), PDO::PARAM_STR);
@@ -105,7 +105,7 @@ class InteresseModel
     public function findByEmail(string $email): ?User
     {
         try {
-            $sql = "Select * from User where email=:email";
+            $sql = "SELECT * FROM User WHERE email=:email";
             $pdostm = $this->conn->prepare($sql);
             $pdostm->bindValue('email', $email, PDO::PARAM_STR);
             $pdostm->execute();
@@ -119,5 +119,15 @@ class InteresseModel
         }
     }
 
-
+    public function addInteresse($user_id, $interesse)
+    {
+        try {
+            $pdostm = $this->conn->prepare('INSERT INTO user_interesse (userId, InteresseId) VALUES (:userid,:InteresseId);');
+            $pdostm->bindValue(':userid', $user_id, PDO::PARAM_STR);
+            $pdostm->bindValue(':InteresseId', $interesse, PDO::PARAM_STR);
+            $pdostm->execute();
+        } catch (\PDOException $e) {
+            throw $e;
+        }
+    }
 }

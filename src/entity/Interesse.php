@@ -5,12 +5,11 @@ namespace sarassoroberto\usm\entity;
 class Interesse
 {
 
-    private $InteresseId;
+
     private $nome;
 
-    public function __construct($InteresseId, $nome)
+    public function __construct($nome)
     {
-        $this->InteresseId = $InteresseId;
         $this->nome = $nome;
     }
 
