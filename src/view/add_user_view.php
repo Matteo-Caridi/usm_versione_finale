@@ -1,7 +1,7 @@
 <?php
 
 use sarassoroberto\usm\model\InteresseModel;
-use sarassoroberto\usm\entity\Interesse;
+
 
 
 include './src/view/head.php' ?>
@@ -66,7 +66,7 @@ include './src/view/head.php' ?>
             foreach ($interesse as $int) { ?>
 
                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="interesse" value="<?= $int->getInteresseId() ?>" id="<?= $int->getInteresseId() ?>"required>
+                  <input class="form-check-input" type="radio" name="interesse" value="<?= $int->getInteresseId() ?>" id="<?= $int->getInteresseId() ?>" <?= $int->getInteresseId() === $inter['InteresseId'] ? 'checked' : '' ?> required>
                   <label class="form-check-label" for="<?= $int->getInteresseId() ?>">
                      <!-- <?= $int->getInteresseId() ?> -->
                      <?= $int->getNome() ?>
@@ -80,32 +80,32 @@ include './src/view/head.php' ?>
 
 
 
-      <?php if (empty($userId)) : ?>
-         <div class="form-group">
-            <label for="">password</label>
-            <input class="form-control <?= $passwordClass ?>" value="<?= $password ?>" name="password" type="password">
-            <div class="<?= $passwordClassMessage ?>">
-               <?= $passwordMessage ?>
-            </div>
+
+      <div class="form-group" <?= $type ?>>
+         <label for="">password</label>
+         <input class="form-control <?= $passwordClass ?>" value="<?= $password ?>" name="password" type="password">
+         <div class="<?= $passwordClassMessage ?>">
+            <?= $passwordMessage ?>
          </div>
-      <?php endif ?>
+      </div>
+
 
 
       <?php if (isset($userId)) { ?>
          <!-- quando gli utenti vengono creati non hanno ancora un id, quindi non ha bisogno del campo nascosto -->
          <!-- invece quando sono in modifica di un utente -->
-         <!-- <div class="form-group mt-4 p-4 border border-danger">
-               <label class="text-danger">
+         <!-- <div class="form-group mt-4 p-4 border border-danger">-->
+         <!-- <label class="text-danger">
                   Questo campo è visibile motivi didattici in realtà dovrebbe essere un <b>input[type=hidden]</b> <br> 
                   serve a inviare via POST, il valore dello <b>userId</b> dell'istanza di User da aggiornare sul database<br>
-               </label>
-               <label class="d-block text-bold">id dell'utente che sto modificando</label>
-               <input type="text" name="userId" value="<?= $userId ?>" class="form-control"> -->
-</div>
+               </label> -->
+         <!-- <label class="d-block text-bold">id dell'utente che sto modificando</label> -->
+         <input type="hidden" name="userId" value="<?= $userId ?>" class="form-control">
+         <!-- </div>-->
 
-<?php } ?>
+      <?php } ?>
 
-<div class="p-3 my-3  text-center">
-   <button class="btn btn-primary mt-3" type="submit"><?= $submit ?></button>
-   <button class="btn btn-primary mt-3"><a href="./list_users.php" style="color:white; text-decoration:none">Torna alla lista</a></button>
-</div>
+      <div class="p-3 my-3  text-center">
+         <button class="btn btn-primary mt-3" type="submit"><?= $submit ?></button>
+         <button class="btn btn-primary mt-3"><a href="./list_users.php" style="color:white; text-decoration:none">Torna alla lista</a></button>
+      </div>

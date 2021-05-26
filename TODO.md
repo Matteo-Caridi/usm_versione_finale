@@ -21,12 +21,12 @@ User n --- m Interesse
       - [x] Inserire nella tabella User_Interesse UserId appena creato e InteresseId selezionato
 
   
-      - [ ] EDIT USER - Devo trovare l'interesse compilato dall'utente in fase di iscrizione già selezionato [selecthtml](https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_select)
+      - [x] EDIT USER - Devo trovare l'interesse compilato dall'utente in fase di iscrizione già selezionato [selecthtml](https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_select)
 
       - [ ] DELETE USER - cancellare il suo riferimento anche nella tabella
       User_Interesse
 
-      - [ ] DELETE Interesse - cancellare il suo riferimento anche nella tabella
+      - [x] DELETE Interesse - cancellare il suo riferimento anche nella tabella
       User_Interesse
 
       - EDIT USER - Cambio id di riferimento nella tabella User_Interesse

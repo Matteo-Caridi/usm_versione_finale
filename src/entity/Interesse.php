@@ -5,7 +5,6 @@ namespace sarassoroberto\usm\entity;
 class Interesse
 {
 
-
     private $nome;
 
     public function __construct($nome)

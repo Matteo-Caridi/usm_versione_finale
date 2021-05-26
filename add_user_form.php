@@ -13,6 +13,7 @@ require "./__autoload.php";
 /** $action rappresentà l'indirizzo a cui verranno inviati i dati del form */
 $action = './add_user_form.php';
 $submit = 'Aggiungi nuovo utente';
+$type = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
@@ -51,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userModel = new UserModel();
             $userModel->create($user);
             $user = $userModel->findByEmail($email);
-            print_r($user);
+
             $userId = $user->getUserId();
             $interesse = $_POST['interesse'];
             $int = new InteresseModel();

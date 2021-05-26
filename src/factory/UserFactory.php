@@ -8,6 +8,6 @@ class UserFactory {
     public static function fromArray(array $data):User
     {
         extract($data);
-        return new User($firstName,$lastName,$email,$birthday,$password);
+        return new User($firstName,$lastName,$email,$birthday, $password);
     }
 }

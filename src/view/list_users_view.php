@@ -28,7 +28,7 @@
     </table>
     <div class="p-3 my-3  text-center">
         <a class="btn btn-primary" href="./add_user_form.php">Add new user</a>
-        <a class="btn btn-primary" href="./logout.php">Logout</a>
+        <a class="btn btn-danger" href="./logout.php">Logout</a>
     </div>
 
 </div>

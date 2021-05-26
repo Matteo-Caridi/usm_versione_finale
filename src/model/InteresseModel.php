@@ -45,14 +45,14 @@ class InteresseModel
         return $pdostm->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Interesse::class, ['', '']);
     }
 
-    public function readOne($InteresseId)
+    public function readOne($userId)
     {
         try {
-            $sql = "SELECT * FROM interesse WHERE InteresseId=:InteresseId";
+            $sql = "SELECT InteresseId FROM user_interesse WHERE userId=:userId";
             $pdostm = $this->conn->prepare($sql);
-            $pdostm->bindValue('InteresseId', $InteresseId, PDO::PARAM_INT);
+            $pdostm->bindValue(':userId', $userId, PDO::PARAM_INT);
             $pdostm->execute();
-            $result = $pdostm->fetchAll(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, Interesse::class, ['', '']);
+            $result = $pdostm->fetchAll(PDO::FETCH_ASSOC);
 
             return count($result) === 0 ? null : $result[0];
         } catch (\Throwable $th) {
@@ -63,26 +63,27 @@ class InteresseModel
     }
 
 
-    public function update($interesse)
-    {
-        $sql = "UPDATE interesse set nome =:nome
-                                where InteresseId=:InteresseId;";
-        $pdostm = $this->conn->prepare($sql);
-        $pdostm->bindValue(':nome', $interesse->getNome(), PDO::PARAM_STR);
-        $pdostm->bindValue(':InteresseId', $interesse->getInteresseId());
+    // public function update($user, $InteresseId)
+    // {
+    //     // $sql = "UPDATE `usm_3`.`user_interesse` SET `InteresseId`='9' WHERE  `userId`=21 AND `InteresseId`=1 LIMIT 1;
+    //     $sql = "UPDATE user_interesse SET InteresseId =:InteresseId
+    //                             WHERE userId=:userId AND";
+    //     $pdostm = $this->conn->prepare($sql);
+    //     $pdostm ->bindValue(':userId', $user->getUserId(), PDO::PARAM_INT);
+    //     $pdostm->bindValue(':InteresseId', $InteresseId, PDO::PARAM_INT);
 
-        try {
-            $pdostm->execute();
+    //     try {
+    //         $pdostm->execute();
 
-            if ($pdostm->rowCount() === 0) {
-                return false;
-            } elseif ($pdostm->rowCount() === 1) {
-                return true;
-            }
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
+    //         if ($pdostm->rowCount() === 0) {
+    //             return false;
+    //         } elseif ($pdostm->rowCount() === 1) {
+    //             return true;
+    //         }
+    //     } catch (\Throwable $th) {
+    //         throw $th;
+    //     }
+    // }
 
     public function delete(int $InteresseId): bool
     {
@@ -92,6 +93,21 @@ class InteresseModel
         $pdostm->bindValue(':InteresseId', $InteresseId, PDO::PARAM_INT);
         $pdostm->execute();
 
+
+        if ($pdostm->rowCount() === 0) {
+            return false;
+        } elseif ($pdostm->rowCount() === 1) {
+            return true;
+        }
+    }
+
+    public function deleteInteresse(int $userId)
+    {
+        
+        $sql = "DELETE FROM user_interesse WHERE userId = :userId";
+        $pdostm = $this->conn->prepare($sql);
+        $pdostm->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $pdostm->execute();
 
         if ($pdostm->rowCount() === 0) {
             return false;
